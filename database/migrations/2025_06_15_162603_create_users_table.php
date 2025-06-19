@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name')->comment('user first name.');
-            $table->string('last_name')->comment('user last name.');
-            $table->string('user_name')->comment('user user name.')->max(30);
-            $table->string('password')->comment('user password.');
-            $table->timestamp('registration_date')->comment('user date of registration.');
+        $table->id()->comment('Primary key for the users table');
+        $table->string('first_name');
+        $table->string('last_name');
+        $table->string('user_name')->unique();
+        $table->timestamp('registration_date')->nullable();
+        $table->string('password')->comment('Hashed user password');
+        $table->timestamps(); // <-- this adds updated_at and created_at columns
         });
     }
 
